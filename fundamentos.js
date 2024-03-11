@@ -1,3 +1,12 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 //No TypeScript é preciso declarar o tipo de variável antes de atribuir o valor
 // TIPO NUMBER
 var numero = 2;
@@ -80,3 +89,75 @@ var gatinhoDaAlice = {
     tipoRacao: 'Premier para gatos castrados'
 };
 showPet(gatinhoDaAlice);
+// FUNÇÃO SEM RETORNO
+function semRetorno() {
+    console.log('Sou sem retorno');
+}
+;
+semRetorno();
+// LITERAL TYPES
+var teste;
+teste = 'testando';
+// TYPE UNKNOW
+function algumaCoisa(x) {
+    if (Array.isArray(x)) {
+        console.log(x[0]);
+    }
+}
+algumaCoisa('10');
+algumaCoisa(true);
+// NEVER
+function showError(msgError) {
+    throw new Error(msgError);
+}
+//showError('Deu erro aqui!')
+// REST e SPREAD no JS
+// • SPREAD: o objetivo do operador spread é espalhar/propagar os elementos de um array ou objeto.
+var umArray = [1, 2, 3, 4, 5];
+var umNovoArray = __spreadArray(__spreadArray([], umArray, true), [6, 7, 8, 9, 10], false);
+console.log(umNovoArray);
+// • REST: Quando o número de parâmetros que uma função receberá não é conhecido ou pode variar, podemos utilizar parâmetros rest. Em JavaScript, isso é conseguido com a variável “argumentos”. No entanto, com TypeScript, podemos usar o parâmetro rest indicado por reticências ...
+function umaFunction() {
+    var a = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        a[_i] = arguments[_i];
+    }
+    console.log(a);
+}
+umaFunction(1, 2, 3, 4, 5, 6);
+umaFunction(1, 2);
+umaFunction(1);
+//umaFunction('1')
+// DESTRUCTURING COM PARÂMETROS DE OBJETOS
+function showProdutos(_a) {
+    var nome = _a.nome, preco = _a.preco;
+    return "O nome do produto \u00E9: ".concat(nome, "e o pre\u00E7o dele \u00E9 ").concat(preco);
+}
+var camisa = {
+    nome: 'Camisa de algodão',
+    preco: 29.90
+};
+console.log(showProdutos(camisa));
+// READONLY
+// O prefixo readonly é usado para tornar uma propriedade somente leitura. Membros somente leitura podem ser acessados ​​fora da classe, mas seu valor não pode ser alterado.
+var meuReadOnly = [['Kaynan']];
+var bmw = {
+    marca: 'BMW',
+    modelo: 'bmw 320i'
+};
+//bmw.marca = 'Toyota'
+console.log(bmw.marca);
+function showNewUserDetails(newUser) {
+    return "Seu e-mail \u00E9 ".concat(newUser.email, " sua senha \u00E9 ").concat(newUser.senha, " e sua regra de acesso \u00E9: ").concat(newUser.regra ? newUser.regra : 'SEM REGRA');
+}
+var user10 = {
+    email: 'teste@ts.com',
+    senha: '12345678',
+    regra: 'gerente'
+};
+var user11 = {
+    email: 'convidado@ts.com',
+    senha: 'sem senha',
+};
+console.log(showNewUserDetails(user10));
+console.log(showNewUserDetails(user11));

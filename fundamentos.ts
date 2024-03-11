@@ -176,3 +176,80 @@ function algumaCoisa(x: unknown): void {
 
 algumaCoisa('10')
 algumaCoisa(true)
+
+// NEVER
+function showError(msgError: string): never {
+    throw new Error(msgError)
+}
+
+//showError('Deu erro aqui!')
+
+// REST e SPREAD no JS
+// • SPREAD: o objetivo do operador spread é espalhar/propagar os elementos de um array ou objeto.
+let umArray = [1, 2, 3, 4, 5]
+let umNovoArray = [...umArray, 6, 7, 8, 9, 10]
+console.log(umNovoArray)
+
+// • REST: Quando o número de parâmetros que uma função receberá não é conhecido ou pode variar, podemos utilizar parâmetros rest. Em JavaScript, isso é conseguido com a variável “argumentos”. No entanto, com TypeScript, podemos usar o parâmetro rest indicado por reticências ...
+function umaFunction(...a:number[]) {
+    console.log(a)
+}
+umaFunction(1,2,3,4,5,6)
+umaFunction(1,2)
+umaFunction(1)
+//umaFunction('1')
+
+
+// DESTRUCTURING COM PARÂMETROS DE OBJETOS
+function showProdutos({nome, preco}: {nome: string, preco: number}):string {
+    return `O nome do produto é: ${ nome }e o preço dele é ${ preco }`
+}
+
+const camisa = {
+    nome: 'Camisa de algodão',
+    preco: 29.90
+}
+
+console.log(showProdutos(camisa))
+
+// READONLY
+// O prefixo readonly é usado para tornar uma propriedade somente leitura. Membros somente leitura podem ser acessados ​​fora da classe, mas seu valor não pode ser alterado.
+
+const meuReadOnly: readonly string[][] = [['Kaynan']]
+interface Carro {
+    readonly marca: string,
+    modelo: string,
+}
+
+const bmw: Carro = {
+    marca: 'BMW',
+    modelo: 'bmw 320i'
+}
+
+//bmw.marca = 'Toyota'
+console.log(bmw.marca)
+
+// OPCIONAL EM INTERFACES
+interface NewUser {
+    email: string,
+    senha: string | number,
+    regra?: string
+}
+
+function showNewUserDetails(newUser: NewUser): string {
+    return `Seu e-mail é ${ newUser.email } sua senha é ${ newUser.senha } e sua regra de acesso é: ${ newUser.regra ? newUser.regra : 'SEM REGRA' }`
+}
+
+const user10: NewUser = {
+    email: 'teste@ts.com',
+    senha: '12345678',
+    regra: 'gerente'
+}
+
+const user11: NewUser = {
+    email: 'convidado@ts.com',
+    senha: 'sem senha',
+}
+
+console.log(showNewUserDetails(user10))
+console.log(showNewUserDetails(user11))
